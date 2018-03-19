@@ -21,6 +21,35 @@ class AccountsController < ApplicationController
   def edit
   end
 
+  def deposit
+    @current_account = Account.find(params[:id])
+  end
+
+  def withdrawal
+    @current_account = Account.find(params[:id])
+  end
+
+  def update_balance
+    overdraft = false
+    @account = Account.find(params[:id])
+    current_balance = @account.balance
+    if params[:transaction] == "deposit"
+      @account.update(balance: current_balance + params[:balance].to_f)
+    else
+        if params[:balance].to_f > current_balance
+          overdraft = true
+        else
+          @account.update(balance: current_balance - params[:balance].to_f)
+        end
+    end
+
+    if overdraft == true
+      redirect_to root_path, notice: "Withdrawal amount of $#{'%.2f' % params[:balance].to_f} exceeds your current balance of $#{current_balance}. Please enter a different amount."
+    else 
+    redirect_to root_path, notice: "Your #{params[:transaction]} of $#{'%.2f' % params[:balance]} has been made to account #{@account.id}."
+    end
+  end
+
   # POST /accounts
   # POST /accounts.json
   def create

@@ -1,4 +1,8 @@
 <h1>Welcome to Your Dashboard, <%= current_user.first_name %></h1>
+
+<p id="notice"><%= notice %></p>
+
+
 <p>Here are a list of your accounts:</p>
 
 <table class="table">
@@ -18,7 +22,7 @@
   <tbody>
     <% @accounts.each do |account| %>
       <tr>
-      	<td><%= account.account_type %></td>
+      	<td><%= account.account_type.capitalize %></td>
       		<% if current_user.role == 'admin' %>
 	      		<td><%= account.user.first_name %></td>
 	      		<td><%= account.user.last_name %></td>

@@ -1,0 +1,13 @@
+<h2>Please enter the amount you'd like to withdraw:</h2>
+<p>Current Balance: <%= number_to_currency @current_account.balance %> </p>
+
+
+
+<%= form_tag update_balance_path do %>
+      <%= number_field_tag :balance,0,  min: 0, step: :any, class: "form-control" %>
+      <%= hidden_field_tag :id, @current_account.id %>
+      <%= hidden_field_tag :user_id, current_user.id %>
+      <%= hidden_field_tag :transaction, "withdrawal" %>
+      <%= submit_tag "Update Balance", class: "btn btn-success" %>
+<% end %>
+
