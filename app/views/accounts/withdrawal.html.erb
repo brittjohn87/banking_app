@@ -4,7 +4,7 @@
 
 
 <%= form_tag update_balance_path do %>
-      <%= number_field_tag :balance,0,  min: 0, step: :any, class: "form-control" %>
+      <%= number_field_tag :balance, 0.01, min: 0.01, step: :any, class: "form-control" %>
       <%= hidden_field_tag :id, @current_account.id %>
       <%= hidden_field_tag :user_id, current_user.id %>
       <%= hidden_field_tag :transaction, "withdrawal" %>

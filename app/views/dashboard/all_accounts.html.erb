@@ -30,6 +30,8 @@
         <td><%= account.id %></td>
         <td><%= number_to_currency account.balance %></td>
         <td><%= link_to 'Show', account %></td>
+        <td><%= link_to 'Make A Deposit', deposit_path(id: account.id), class: 'btn btn-info' %></td>
+        <td><%= link_to 'Make A Withdrawal', withdrawal_path(id: account.id), class: 'btn btn-warning' %></td>
       </tr>
     <% end %>
   </tbody>
