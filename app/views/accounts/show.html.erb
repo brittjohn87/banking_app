@@ -28,7 +28,7 @@
 </p>
 
 <% if current_user.role == 'client' %>
-	<%= link_to 'Make A Deposit', deposit_path(id: @account.id) %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: @account.id) %>
+	<%= link_to 'Make A Deposit', deposit_path(id: @account.id), class: 'btn btn-info' %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: @account.id), class: 'btn btn-danger' %> | <%= link_to 'Transfer Funds', transfer_path(id: @account.id), class: 'btn btn-warning' %>
 <% end %>
 
 <h3>Transaction History:</h3>

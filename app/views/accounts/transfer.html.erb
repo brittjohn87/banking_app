@@ -1,0 +1,13 @@
+<h2>Please enter the amount you'd like to transfer from Account Number <%= @from_account.id %>:</h2>
+
+<p>Current Balance: <%= @from_account.balance %></p>
+
+<%= form_tag complete_transfer_path do %>
+
+	<%= hidden_field_tag :user_id, current_user.id %>
+	<%= hidden_field_tag :account_from, @from_account.id %>
+	<%= select_tag :account_to, options_for_select(current_user.accounts.collect{|a| [a.id, a.id]}), placeholder: 'Transfer to...' %>
+  
+  <%= number_field_tag :balance, 0.01, min: 0.01, step: :any %>
+  <%= submit_tag "Complete Transfer", class: "btn btn-success" %>
+<% end %>

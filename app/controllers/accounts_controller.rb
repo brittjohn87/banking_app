@@ -56,7 +56,33 @@ class AccountsController < ApplicationController
     end
   end
 
-  
+  def transfer
+    @from_account = Account.find(params[:id]) 
+    @accounts = Account.where(user_id: current_user.id)
+  end
+
+  def complete_transfer
+    @from_account = Account.find_by(user_id: current_user.id, id: params[:account_from])
+    @to_account = Account.find_by(user_id: current_user.id, id: params[:account_to])
+
+    from_current_balance = @from_account.balance
+    to_current_balance = @to_account.balance
+    overdraft = false
+
+    if params[:balance].to_f > from_current_balance
+      overdraft = true
+    else
+      @from_account.update(balance: from_current_balance - params[:balance].to_f)
+      @to_account.update(balance: to_current_balance + params[:balance].to_f)
+    end
+
+    if overdraft == true 
+      redirect_to root_path, notice: "Transfer amount of $#{'%.2f' % params[:balance].to_f} exceeds your current balance of $#{from_current_balance}. Please select a different amount."
+    else
+      redirect_to root_path, notice: "Your transfer of $#{'%.2f' % params[:balance].to_f} from account# #{@from_account.id} to account# #{@to_account.id} has been made."
+    end
+
+  end
 
   # POST /accounts
   # POST /accounts.json

@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'deposit' => 'accounts#deposit'
   get 'withdrawal' => 'accounts#withdrawal'
   post 'update_balance' => 'accounts#update_balance'
+  get 'transfer' => 'accounts#transfer'
+  post 'complete_transfer' => 'accounts#complete_transfer'
 
   resources :accounts
   devise_for :users
