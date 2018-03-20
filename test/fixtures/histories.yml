@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  object_name: MyString
+  object_id: 1
+  attribute_name: MyString
+  before_value: MyString
+  after_value: MyString
+
+two:
+  object_name: MyString
+  object_id: 1
+  attribute_name: MyString
+  before_value: MyString
+  after_value: MyString

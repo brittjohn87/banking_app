@@ -27,6 +27,39 @@
   <%= @account.account_type.capitalize %>
 </p>
 
-<%= link_to 'Make A Deposit', deposit_path(id: @account.id) %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: @account.id) %>
+<% if current_user.role == 'client' %>
+	<%= link_to 'Make A Deposit', deposit_path(id: @account.id) %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: @account.id) %>
+<% end %>
+
+<h3>Transaction History:</h3>
+
+<table class="table">
+  <thead>
+    <tr>
+    	<th>Date</th>
+	    <th>Transaction Type</th>
+	    <th>Amount</th>
+      <th>Previous Balance</th>
+      <th>Available Balance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @histories.each do |history| %>
+      <tr>
+      	<td><%= history.created_at %></td>
+      	<% if history.before_value.to_f > history.after_value.to_f %>
+      		<td>Withdrawal</td>
+      	<% else %>
+      		<td>Deposit</td>
+      	<% end %>
+	      <td><%= number_to_currency "#{(history.before_value.to_f - history.after_value.to_f).abs}" %></td>
+	      <td><%= number_to_currency history.before_value.to_f %></td>
+        <td><%= number_to_currency history.after_value.to_f %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <%= link_to 'Back to Dashboard', root_path, class: 'btn btn-warning' %>

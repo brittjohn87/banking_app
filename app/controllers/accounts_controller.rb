@@ -10,6 +10,7 @@ class AccountsController < ApplicationController
   # GET /accounts/1
   # GET /accounts/1.json
   def show
+    @histories = History.where(object_name: "Account", object_id: @account.id)
   end
 
   # GET /accounts/new
