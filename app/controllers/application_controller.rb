@@ -14,5 +14,12 @@ class ApplicationController < ActionController::Base
    devise_parameter_sanitizer.permit(:account_update, keys: [:first_name, :last_name, :role])
 	end
 
+	rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.json { head :forbidden }
+      format.html { redirect_to main_app.root_url, :alert => "Not Authorized!" }
+    end
+  end
+
 end
 

@@ -39,7 +39,15 @@ div {
 
 #notice {
   color: green;
-  font-size: 20px;
+  font-style: italic;
+  font-size: 15px;
+}
+
+#alert {
+  color: red;
+  font-weight: bold;
+  font-size: 15px;
+  font-style: italic;
 }
 
 .field_with_errors {
