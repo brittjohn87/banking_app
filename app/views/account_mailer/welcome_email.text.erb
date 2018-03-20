@@ -1,0 +1,12 @@
+Welcome to BankAndTrust.com, <%= @user.first_name %>
+==============================================================================================================
+
+	You have successfully created an account at Bank and Trust. Your money is "safe" with us!
+	
+	Your account info is as follows:
+	----------------------------------
+
+	Account Number: <%= @account.id %>
+	Initial Balance: <%= number_to_currency @account.balance %>
+	
+	To view more info, please visit your banking Dashboard at <%= @url %>. We look forward to doing business with you!

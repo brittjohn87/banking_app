@@ -1,0 +1,19 @@
+There have been changes to <%= @account.id %>, at BankAndTrust.com, <%= @user.first_name %>
+============================================================================================
+
+	There has been a recent change in your account!
+
+	Update is as follows:
+	===============================
+	Transaction Date: <%= @account.updated_at.strftime("%B %d, %Y") %>
+	Account Number: <%= @account.id %>
+	Account Type: <%= @account.account_type %>
+	Transaction Type: <%= @transaction %>
+	Amount of Transaction: <%= number_to_currency @amount %>
+	Previous Balance: <%= number_to_currency @previous_balance %>
+	Current Balance: <%= number_to_currency @account.balance %>
+
+  
+If this change has occured in error please reach out to us immediately at <%= @url %>.
+
+Otherwise, we appreciate your business and hope you continue to enjoy banking with us.

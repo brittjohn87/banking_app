@@ -37,6 +37,7 @@
   <thead>
     <tr>
     	<th>Date</th>
+      <th>Time</th>
 	    <th>Transaction Type</th>
 	    <th>Amount</th>
       <th>Previous Balance</th>
@@ -48,7 +49,8 @@
   <tbody>
     <% @histories.each do |history| %>
       <tr>
-      	<td><%= history.created_at %></td>
+      	<td><%= history.created_at.strftime("%B %d, %Y") %></td>
+        <td><%= history.created_at.strftime("%I:%M:%P") %></td>
       	<% if history.before_value.to_f > history.after_value.to_f %>
       		<td>Withdrawal</td>
       	<% else %>
