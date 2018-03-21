@@ -5,6 +5,7 @@ class AccountsController < ApplicationController
   # GET /accounts.json
   def index
     authorize! :destroy, @account
+    @users = User.all
     @accounts = Account.all
   end
 
@@ -68,20 +69,32 @@ class AccountsController < ApplicationController
     from_current_balance = @from_account.balance
     to_current_balance = @to_account.balance
     overdraft = false
+    same_account = false
+    below_zero = false
 
     if params[:balance].to_f > from_current_balance
       overdraft = true
+
+    elsif  params[:balance].to_f == from_current_balance 
+        below_zero = true
     else
+      if @from_account.id == @to_account.id
+        same_account = true
+      else
       @from_account.update(balance: from_current_balance - params[:balance].to_f)
       @to_account.update(balance: to_current_balance + params[:balance].to_f)
+      end
     end
 
-    if overdraft == true 
+    if same_account == true
+      redirect_to root_path, notice: "The transfer can not be the same as the transfer to account. Please select a different account to process the transaction."
+    elsif overdraft == true 
       redirect_to root_path, notice: "Transfer amount of $#{'%.2f' % params[:balance].to_f} exceeds your current balance of $#{from_current_balance}. Please select a different amount."
+    elsif below_zero == true
+      redirect_to root_path, notice: "There must be a minimum of $0.01 in your account at all times. Please select another amount to transfer."
     else
       redirect_to root_path, notice: "Your transfer of $#{'%.2f' % params[:balance].to_f} from account# #{@from_account.id} to account# #{@to_account.id} has been made."
     end
-
   end
 
   # POST /accounts
@@ -124,7 +137,7 @@ class AccountsController < ApplicationController
     authorize! :destroy, @account
     @account.destroy
     respond_to do |format|
-      format.html { redirect_to accounts_url, notice: 'Account was successfully destroyed.' }
+      format.html { redirect_to root_path, notice: 'Account was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

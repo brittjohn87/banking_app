@@ -17,3 +17,10 @@
 @import 'bootstrap-sprockets';
 @import 'bootstrap';
 @import 'font-awesome';
+
+.money_circle {
+	height: 200px;
+	width: 200px;
+	border-radius: 100px;
+	border: 5px groove black;
+}
