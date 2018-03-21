@@ -54,15 +54,14 @@
         <div class="panel panel-default">
           <div class="panel-heading">
             <h3><%= account.account_type %></h3>
+            <p>Account Number: <%= account.id %></p>
           </div>
           <div class="panel-body">
-            <div class="money_circle">
-              <div class="content">
-                <p>Account Number: <%= account.id %></p>
-                <p><%= number_to_currency account.balance %></p>
-              </div>
-            </div>
-            <p><%= link_to 'Make A Deposit', deposit_path(id: account.id), class: 'btn btn-default' %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: account.id), class: 'btn btn-default' %></p> 
+            <center><div class="money_circle">
+              <p><%= number_to_currency account.balance %></p>
+            </div></center><br />
+            <center><p><%= link_to 'Make A Deposit', deposit_path(id: account.id), class: 'btn btn-default' %> | <%= link_to 'Make A Withdrawal', withdrawal_path(id: account.id), class: 'btn btn-default' %></p></center><br /> 
+            <center><p><%= link_to 'More Details', account, class: 'btn btn-default' %></p></center>
           </div>
         </div>
       </div>
